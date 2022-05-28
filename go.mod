@@ -1,3 +1,4 @@
-module github.com/marcosvieirajr/pismo-card
+module github.com/marcosvieirajr/payment
 
 go 1.18
+
