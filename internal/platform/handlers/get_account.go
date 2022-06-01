@@ -15,7 +15,7 @@ func GetAccount(uc usecases.GetAccountUseCase) gin.HandlerFunc {
 		ID int64 `uri:"id"`
 	}
 	type response struct {
-		ID             int64  `json:"id"`
+		ID             int64  `json:"account_id"`
 		DocumentNumber string `json:"document_number"`
 	}
 
