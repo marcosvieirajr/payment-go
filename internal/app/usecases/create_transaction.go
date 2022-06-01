@@ -5,7 +5,6 @@ import (
 
 	"github.com/marcosvieirajr/payment/internal/app/domain/operations"
 	"github.com/marcosvieirajr/payment/internal/app/usecases/dto"
-	"github.com/sirupsen/logrus"
 )
 
 type CreateTransactionUseCase interface {
@@ -17,7 +16,7 @@ type createTransactionService struct {
 	gtwCreateAcc CreateTransactionGateway
 }
 
-func NewCreateTransactionUseCase(l *logrus.Logger,
+func NewCreateTransactionUseCase(
 	gGetAcc GetAccountGateway,
 	gCreateAcc CreateTransactionGateway,
 ) CreateTransactionUseCase {
