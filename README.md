@@ -149,7 +149,7 @@ curl -v -X POST \
 
 ### TODOs
 
+- [ ] implementar testes nos HTTP Handlers
 - [ ] adicionar logs na camada de caso de uso
 - [ ] tratar possíveis problemas de precisão decimal
-- [ ] finalizar implementação dos testes
 - [ ] implementar JWT middleware
