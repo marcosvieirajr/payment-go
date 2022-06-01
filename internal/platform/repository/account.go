@@ -7,13 +7,14 @@ import (
 
 	"github.com/marcosvieirajr/payment/internal/app"
 	"github.com/marcosvieirajr/payment/internal/app/domain"
+	"github.com/marcosvieirajr/payment/internal/app/usecases"
 	"github.com/marcosvieirajr/payment/internal/app/usecases/dto"
 )
 
 type AccountRepository interface {
-	GetAccount(ctx context.Context, id int64) (*domain.Account, error)
-	CountAccountsByDocument(ctx context.Context, doc string) (int, error)
-	CreateAccount(ctx context.Context, a dto.Account) (*int64, error)
+	usecases.CreateAccountGateway
+	usecases.GetAccountGateway
+	usecases.CountAccountsByDocumentGateway
 }
 
 type account struct {

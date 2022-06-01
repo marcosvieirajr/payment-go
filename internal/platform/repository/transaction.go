@@ -5,11 +5,12 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/marcosvieirajr/payment/internal/app/usecases"
 	"github.com/marcosvieirajr/payment/internal/app/usecases/dto"
 )
 
 type TransactionRepository interface {
-	CreateTransaction(ctx context.Context, t dto.Transaction) (*int64, error)
+	usecases.CreateTransactionGateway
 }
 
 type transaction struct {
