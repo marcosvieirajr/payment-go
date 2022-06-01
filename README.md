@@ -44,9 +44,16 @@ payment
 
 ### Executando
 
+#### docker-compose
 Para "buildar" e executar a aplicação de forma fácil, existe o arquivo `docker-compose.yml` na raiz do projeto. O Docker compose "builda" uma imagem Docker `FROM scratch` utilizando **multi-stage builds** e subirá um PostgreSQL e um clinente para facilitar a consulta visual no banco.
 
+```
+docker-compose up --build
+```
+
 O arquivo `initdb.sql`, também na raiz do projeto, será lido no momento da subida do container do PostgreSQL, via volumes configurado no docker compose.
+
+#### Makefile
 
 Também foi disponibilizado um `Makefile` com os seguintes targuets:
 
@@ -54,6 +61,8 @@ Também foi disponibilizado um `Makefile` com os seguintes targuets:
 - `setup` prepara o ambiente para iniciar o desenvolvimento
 - `run` executa o docker-compose com a flag --build
 - `test` executa todos os testes de unidades
+
+#### Iniando sem o Docker
 
 Para iniciar o serviço localmente sem o Docker, será necessário criar um arquivo `.env` com variáveis de ambiente necessárias. Tal arquivo pode ser criado executado o comando abaixo no terminal:
 
@@ -65,6 +74,24 @@ DB_USER=admin
 DB_PASSWORD=admin
 DB_NAME=payment
 EOF
+```
+
+Com o arquivo `.env` criado, executamos os comandos a seguiur para baixar as dependencias.
+
+```bash
+go mod tidy && go mod vendor
+```
+
+Então, subimos o banco de dados pelo docker-compose
+
+```bash
+docker-compose up -d db adminer
+```
+
+E executamos a aplicação
+
+```bash
+go run ./cmd/restapp/main.go
 ```
 
 ### Acessando
