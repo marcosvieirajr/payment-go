@@ -6,7 +6,6 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/marcosvieirajr/payment/internal/app"
-	"github.com/marcosvieirajr/payment/internal/app/domain/operations"
 	"github.com/marcosvieirajr/payment/internal/app/usecases"
 	"github.com/marcosvieirajr/payment/internal/app/usecases/dto"
 )
@@ -14,7 +13,7 @@ import (
 func CreateTransaction(uc usecases.CreateTransactionUseCase) gin.HandlerFunc {
 	var request struct {
 		AccountID       int64   `json:"account_id" binding:"required"`
-		OperationTypeID int64   `json:"operation_type_id" binding:"required"`
+		OperationTypeID int     `json:"operation_type_id" binding:"required"`
 		Amount          float64 `json:"amount"`
 	}
 	return func(c *gin.Context) {
@@ -26,7 +25,7 @@ func CreateTransaction(uc usecases.CreateTransactionUseCase) gin.HandlerFunc {
 		dto := dto.Transaction{
 			Account: dto.Account{
 				ID: request.AccountID},
-			OperationType: operations.OperationType(request.OperationTypeID),
+			OperationType: request.OperationTypeID,
 			Amount:        request.Amount,
 			CreatedFrom:   c.ClientIP()}
 

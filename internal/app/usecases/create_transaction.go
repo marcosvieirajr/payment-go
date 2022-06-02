@@ -3,7 +3,7 @@ package usecases
 import (
 	"context"
 
-	"github.com/marcosvieirajr/payment/internal/app/domain/operations"
+	"github.com/marcosvieirajr/payment/internal/app/domain"
 	"github.com/marcosvieirajr/payment/internal/app/usecases/dto"
 )
 
@@ -23,24 +23,21 @@ func NewCreateTransactionUseCase(
 	return &createTransactionService{gtwGetAcc: gGetAcc, gtwCreateAcc: gCreateAcc}
 }
 
-func (uc *createTransactionService) Execute(ctx context.Context, t dto.Transaction) (*int64, error) {
-	account, err := uc.gtwGetAcc.GetAccount(ctx, t.Account.ID)
+func (uc *createTransactionService) Execute(ctx context.Context, dto dto.Transaction) (*int64, error) {
+	_, err := uc.gtwGetAcc.GetAccount(ctx, dto.Account.ID)
 	if err != nil {
 		return nil, err
 	}
 
-	operation := operations.MakeOperator(t.OperationType, t.Amount)
+	tr := domain.Transaction{
+		OperationType: dto.OperationType,
+		Amount:        dto.Amount,
+	}
 
-	transaction, err := account.Transact(operation)
+	err = tr.Validate()
 	if err != nil {
 		return nil, err
 	}
-
-	dto := dto.Transaction{
-		Account:       dto.Account{ID: transaction.AccountID},
-		OperationType: transaction.OperationType,
-		Amount:        transaction.Amount,
-		CreatedFrom:   t.CreatedFrom}
 
 	return uc.gtwCreateAcc.CreateTransaction(ctx, dto)
 }
