@@ -38,10 +38,10 @@ func main() {
 	transactionRepository := repository.NewTransactionRepository(db)
 
 	// registering gateways (optional)
-	getAccountGateway := accountRepository
-	createAccountGateway := accountRepository
-	countAccountsByDocumentGateway := accountRepository
-	createTransactionGateway := transactionRepository
+	var getAccountGateway usecases.GetAccountGateway = accountRepository
+	var createAccountGateway usecases.CreateAccountGateway = accountRepository
+	var countAccountsByDocumentGateway usecases.CountAccountsByDocumentGateway = accountRepository
+	var createTransactionGateway usecases.CreateTransactionGateway = transactionRepository
 
 	// registering use cases
 	getAccountUseCase := usecases.NewGetAccountUseCase(getAccountGateway)
