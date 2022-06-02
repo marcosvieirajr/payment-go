@@ -19,7 +19,6 @@ payment
 ├── internal
 │   ├── app
 │   │   ├── domain
-│   │   │   └── operations
 │   │   └── usecases
 │   │       └── dto
 │   └── platform
@@ -35,7 +34,7 @@ payment
 - `internal/app:` representa o core da aplicação sem dependência alguma de pacotes externos.
 - `internal/domain:` entidades ricas.
 - `internal/usecases:` a porta de entrada do 'mundo externo", seja via chamadas REST, gRPC, ou qualquer outra de acesso.
-- `internal/dto:` objetos anémicos utilizados para transferência de dados entre as camadas.
+- `internal/usecases/dto:` objetos anémicos utilizados para transferência de dados entre as camadas.
 - `platform:` pastas utilizada para agrupar todo o 'mundo externo". Seja implementações de acesso a banco de dados, cache, filas, ect.
 - `platform/handlers:` handlers de chamadas REST, separados por arquivo. É possível identificar as possíveis chamadas pelos respectivos nomes de arquivo. Foi utilizado o Gin para agilizar a implementação.
 - `platform/repository:` configuração de conexão com o banco de dados e suas operações.
